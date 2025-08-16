@@ -27,7 +27,14 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
           >
             <div className="relative">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl">
+              {/* Anillo de gradiente giratorio DETRÁS */}
+              <div
+                className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin z-0 pointer-events-none"
+                style={{ animationDuration: '3s' }}
+              />
+
+              {/* Imagen de perfil ENCIMA */}
+              <div className="relative z-10 w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                 <Image
                   src={personalInfo.avatar}
                   alt={personalInfo.name}
@@ -36,11 +43,6 @@ export default function Hero() {
                   className="w-full h-full object-cover"
                   priority
                 />
-              </div>
-              {/* Efecto de brillo giratorio */}
-              <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin" 
-                   style={{ animationDuration: '3s' }}>
-                <div className="w-full h-full rounded-full bg-background m-[2px]"></div>
               </div>
             </div>
           </motion.div>
