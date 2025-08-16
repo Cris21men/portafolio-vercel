@@ -67,7 +67,7 @@ export const projects: Project[] = [
     description: "Juego educativo de escritorio tipo Missile Command para aprender matemáticas de forma divertida e interactiva.",
     image: "/images/matematicaStudio21.JPG",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    demoUrl: "https://desafiomatematicosstudio21.vercel.app/",
+    demoUrl: "https://desafiomatematicosstudio21-ohqiuf664-crismen2106-2235s-projects.vercel.app/",
     githubUrl: "https://github.com/Cris21men/laservercelStudio21",
     featured: false
   }
