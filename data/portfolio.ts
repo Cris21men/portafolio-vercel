@@ -32,7 +32,7 @@ export const personalInfo: PersonalInfo = {
   name: "Cristian Pavel Mendieta Alanya",
   title: "Full Stack Developer",
   description: "Apasionado por crear experiencias digitales únicas y funcionales. Especializado en React, Next.js y tecnologías modernas.",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+  avatar: "images/cv.png",
   email: "crismen2106@gmail.com",
   github: "https://github.com/Cris21men",
   linkedin: "https://www.linkedin.com/in/cristian-pavel-mendieta-alanya-a77892377/",
