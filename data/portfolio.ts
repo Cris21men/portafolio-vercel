@@ -70,6 +70,16 @@ export const projects: Project[] = [
     demoUrl: "https://desafiomatematicosstudio21-ohqiuf664-crismen2106-2235s-projects.vercel.app/",
     githubUrl: "https://github.com/Cris21men/laservercelStudio21",
     featured: false
+  },
+  {
+    id: "4",
+    title: "Telegram Bot Studio21",
+    description: "Envía código de VS Code directamente a Telegram.",
+    image: "/images/exstudio21.JPG",
+    technologies: ["TypeScript", "Node.js", "VS Code Extension API", "Telegram Bot API", "HTTPS", "VSCE", "NPM", "Azure DevOps"],
+    demoUrl: "https://marketplace.visualstudio.com/items?itemName=CristianMendietaAlanya.telegram-bot-Studio21&ssr=false#review-detailshttps://desafiomatematicosstudio21.vercel.app/",
+    githubUrl: "https://github.com/Cris21men/telegram-bot-Studio21",
+    featured: false
   }
 ];
 
