@@ -4,12 +4,7 @@ import { motion } from 'framer-motion'
 import { skills, projects } from '@/data/portfolio'
 import { useState } from 'react'
 
-interface SkillCardProps {
-  skill: typeof skills[0]
-  index: number
-}
-
-// Definir variantes directamente aquí
+// Variantes de animación
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 }
@@ -19,105 +14,75 @@ const staggerContainer = {
   initial: {},
   animate: {
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.05
     }
   }
 }
 
-function SkillCard({ skill, index }: SkillCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
+interface CategorySectionProps {
+  title: string
+  skills: typeof skills
+  colorClass: string
+}
 
+function CategorySection({ title, skills, colorClass }: CategorySectionProps) {
   return (
     <motion.div
-      className="group relative bg-card rounded-xl p-6 border border-border hover:shadow-xl transition-all duration-500"
-      initial={{ opacity: 0, y: 60 }}
+      className="mb-12"
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      transition={{ duration: 0.6 }}
     >
-      {/* Ícono y nombre */}
-      <div className="flex items-center gap-4 mb-4">
-        <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
-          {skill.icon}
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
-            {skill.name}
-          </h3>
-          <span className="text-sm text-muted-foreground capitalize">
-            {skill.category}
-          </span>
-        </div>
-      </div>
+      {/* Título de categoría */}
+      <h3 className={`text-xl font-bold mb-6 ${colorClass}`}>
+        {title}
+      </h3>
 
-      {/* Barra de nivel */}
-      <div className="relative">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium">Nivel de experiencia</span>
-          <span className="text-sm text-muted-foreground">{skill.level}%</span>
-        </div>
-        
-        <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
+      {/* Pills/Tags */}
+      <div className="flex flex-wrap gap-3">
+        {skills.map((skill, index) => (
           <motion.div
-            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-            initial={{ width: 0 }}
-            whileInView={{ width: `${skill.level}%` }}
+            key={skill.name}
+            className={`group relative px-5 py-3 rounded-full bg-card border border-border hover:border-${colorClass.split('-')[1]}-500/50 transition-all duration-300 cursor-pointer`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: index * 0.1 }}
-          />
-        </div>
-      </div>
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            whileHover={{ 
+              scale: 1.05, 
+              y: -2,
+              boxShadow: '0 10px 30px -10px rgba(147, 51, 234, 0.3)'
+            }}
+          >
+            {/* Contenido del tag */}
+            <div className="flex items-center gap-2">
+              <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                {skill.icon}
+              </span>
+              <span className="font-medium text-sm group-hover:text-primary transition-colors">
+                {skill.name}
+              </span>
+            </div>
 
-      {/* Efecto de brillo en hover */}
-      <motion.div
-        className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        initial={false}
-        animate={isHovered ? { opacity: [0, 0.5, 0] } : { opacity: 0 }}
-        transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0 }}
-      />
+            {/* Efecto glow en hover */}
+            <motion.div
+              className={`absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300`}
+              initial={false}
+            />
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   )
 }
 
-function CategoryFilter({ 
-  categories, 
-  activeCategory, 
-  onCategoryChange 
-}: {
-  categories: string[]
-  activeCategory: string
-  onCategoryChange: (category: string) => void
-}) {
-  return (
-    <div className="flex flex-wrap justify-center gap-2 mb-8">
-      {categories.map((category) => (
-        <button
-          key={category}
-          onClick={() => onCategoryChange(category)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            activeCategory === category
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-secondary text-secondary-foreground hover:bg-accent'
-          }`}
-        >
-          {category === 'all' ? 'Todas' : category.charAt(0).toUpperCase() + category.slice(1)}
-        </button>
-      ))}
-    </div>
-  )
-}
-
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState<string>('all')
-  
-  const categories = ['all', ...Array.from(new Set(skills.map(skill => skill.category)))]
-  
-  const filteredSkills = activeCategory === 'all' 
-    ? skills 
-    : skills.filter(skill => skill.category === activeCategory)
+  // Agrupar skills por categoría
+  const frontendSkills = skills.filter(s => s.category === 'frontend')
+  const backendSkills = skills.filter(s => s.category === 'backend')
+  const toolsSkills = skills.filter(s => s.category === 'tools')
+  const designSkills = skills.filter(s => s.category === 'design')
 
   return (
     <section id="habilidades" className="py-20 relative">
@@ -145,30 +110,44 @@ export default function Skills() {
             </p>
           </motion.div>
 
-          {/* Filtros de categoría */}
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <CategoryFilter
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryChange={setActiveCategory}
-            />
-          </motion.div>
+          {/* Categorías */}
+          <div className="max-w-5xl mx-auto">
+            {frontendSkills.length > 0 && (
+              <CategorySection
+                title="Frontend"
+                skills={frontendSkills}
+                colorClass="text-blue-500"
+              />
+            )}
 
-          {/* Grid de habilidades */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredSkills.map((skill, index) => (
-              <SkillCard key={skill.name} skill={skill} index={index} />
-            ))}
+            {backendSkills.length > 0 && (
+              <CategorySection
+                title="Backend"
+                skills={backendSkills}
+                colorClass="text-green-500"
+              />
+            )}
+
+            {toolsSkills.length > 0 && (
+              <CategorySection
+                title="Tools"
+                skills={toolsSkills}
+                colorClass="text-orange-500"
+              />
+            )}
+
+            {designSkills.length > 0 && (
+              <CategorySection
+                title="Design"
+                skills={designSkills}
+                colorClass="text-pink-500"
+              />
+            )}
           </div>
 
           {/* Estadísticas adicionales */}
           <motion.div
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
