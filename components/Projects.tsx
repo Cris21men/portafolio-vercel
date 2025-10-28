@@ -39,7 +39,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+              className="p-2 bg-black backdrop-blur-sm rounded-full hover:bg-gray-800 transition-colors"
             >
               <ExternalLink className="w-4 h-4 text-white" />
             </Link>
@@ -49,7 +49,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+              className="p-2 bg-black backdrop-blur-sm rounded-full hover:bg-gray-800 transition-colors"
             >
               <Github className="w-4 h-4 text-white" />
             </Link>
@@ -87,14 +87,14 @@ function ProjectCard({ project, index }: ProjectCardProps) {
           ))}
         </div>
 
-        {/* Enlaces */}
+        {/* Enlaces con fondo negro */}
         <div className="flex gap-3">
           {project.demoUrl && (
             <Link
               href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-sm text-primary hover:underline"
+              className="flex items-center gap-1 px-3 py-1.5 bg-black text-white rounded-md text-sm hover:bg-gray-800 transition-colors"
             >
               <ExternalLink className="w-3 h-3" />
               Demo
@@ -105,7 +105,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-sm text-primary hover:underline"
+              className="flex items-center gap-1 px-3 py-1.5 bg-black text-white rounded-md text-sm hover:bg-gray-800 transition-colors"
             >
               <Github className="w-3 h-3" />
               Código
@@ -158,7 +158,7 @@ export default function Projects() {
               href="https://github.com/Cris21men"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-full hover:bg-accent transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors"
             >
               <Github className="w-4 h-4" />
               Ver más en GitHub
